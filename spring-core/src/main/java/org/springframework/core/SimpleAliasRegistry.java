@@ -37,6 +37,7 @@ import org.springframework.util.StringValueResolver;
  *
  * @author Juergen Hoeller
  * @since 2.5.2
+ * add by chenlei addDate 2018/12/5 简单实现别名的CURD接口 AliasRegistry
  */
 public class SimpleAliasRegistry implements AliasRegistry {
 
@@ -44,11 +45,18 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	/** Map from alias to canonical name. */
+	/**
+	 * add by chenlei addDate 2018/12/5 使用ConcurrentHashMap来缓存别名
+	 * 定义为final作用在于final可以保证初始化过程的安全性。因为在Java中会使用乱序执行来提高效率，那么就会出现对象引用重排至构造之前
+	 * 那么定义为final域的对象那么JVM就必须保证对对象的初始引用在构造函数之后执行
+	 */
 	private final Map<String, String> aliasMap = new ConcurrentHashMap<>(16);
 
 
 	@Override
 	public void registerAlias(String name, String alias) {
+		/** add by chenlei addDate 2018/12/5 校验不通过抛异常，而不是返回错误码。如果用错误码，在调用此方法的层次上，还需要有一层
+		 * 判断使用依据场景选择，工具类定义为abstract除了可以使工具类不能被实例化是否还有其他原因 */
 		Assert.hasText(name, "'name' must not be empty");
 		Assert.hasText(alias, "'alias' must not be empty");
 		synchronized (this.aliasMap) {

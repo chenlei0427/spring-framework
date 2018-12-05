@@ -22,8 +22,10 @@ package org.springframework.core;
  *
  * @author Juergen Hoeller
  * @since 2.5.2
+ * add by chenlei addDate 2018/12/5 用于定义对别名的CURD操作接口
  */
 public interface AliasRegistry {
+
 
 	/**
 	 * Given a name, register an alias for it.
@@ -31,6 +33,7 @@ public interface AliasRegistry {
 	 * @param alias the alias to be registered
 	 * @throws IllegalStateException if the alias is already in use
 	 * and may not be overridden
+	 * add by chenlei addDate 2018/12/5 将一个name注册为一个别名alias
 	 */
 	void registerAlias(String name, String alias);
 
@@ -38,6 +41,7 @@ public interface AliasRegistry {
 	 * Remove the specified alias from this registry.
 	 * @param alias the alias to remove
 	 * @throws IllegalStateException if no such alias was found
+	 * add by chenlei addDate 2018/12/5 从当前容器移除指定别名
 	 */
 	void removeAlias(String alias);
 
@@ -46,6 +50,7 @@ public interface AliasRegistry {
 	 * (as opposed to the name of an actually registered component).
 	 * @param name the name to check
 	 * @return whether the given name is an alias
+	 * add by chenlei addDate 查看name是否注册过别名
 	 */
 	boolean isAlias(String name);
 
@@ -53,6 +58,7 @@ public interface AliasRegistry {
 	 * Return the aliases for the given name, if defined.
 	 * @param name the name to check for aliases
 	 * @return the aliases, or an empty array if none
+	 * add by chenlei addDate 如果name注册过，就返回它的别名
 	 */
 	String[] getAliases(String name);
 

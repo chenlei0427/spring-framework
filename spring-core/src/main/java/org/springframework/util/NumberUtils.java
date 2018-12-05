@@ -36,7 +36,7 @@ import org.springframework.lang.Nullable;
  * @author Rob Harrop
  * @since 1.1.2
  */
-public abstract class NumberUtils {
+	public abstract class NumberUtils {
 
 	private static final BigInteger LONG_MIN = BigInteger.valueOf(Long.MIN_VALUE);
 
