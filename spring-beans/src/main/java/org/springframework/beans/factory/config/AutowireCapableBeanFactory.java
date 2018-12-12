@@ -58,6 +58,7 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.BeanFactoryAware
  * @see org.springframework.beans.factory.config.ConfigurableListableBeanFactory
  * @see org.springframework.context.ApplicationContext#getAutowireCapableBeanFactory()
+ * add by chenlei 2018/12/12 定义自动装配的接口，提供创建bean、自动注入、初始化、应用bean等操作
  */
 public interface AutowireCapableBeanFactory extends BeanFactory {
 

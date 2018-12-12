@@ -44,6 +44,7 @@ import org.springframework.core.AliasRegistry;
  * @see org.springframework.context.support.GenericApplicationContext
  * @see org.springframework.beans.factory.xml.XmlBeanDefinitionReader
  * @see PropertiesBeanDefinitionReader
+ * add by chenlei 2018/12/12 定义对BeanDefinition的CURD操作接口
  */
 public interface BeanDefinitionRegistry extends AliasRegistry {
 

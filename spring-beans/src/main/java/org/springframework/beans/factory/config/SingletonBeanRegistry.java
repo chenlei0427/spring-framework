@@ -31,6 +31,7 @@ import org.springframework.lang.Nullable;
  * @see ConfigurableBeanFactory
  * @see org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
  * @see org.springframework.beans.factory.support.AbstractBeanFactory
+ * add by chenlei 2018/12/12 定义对单例的注册与获取接口
  */
 public interface SingletonBeanRegistry {
 
@@ -54,6 +55,7 @@ public interface SingletonBeanRegistry {
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
 	 * @see org.springframework.beans.factory.DisposableBean#destroy
 	 * @see org.springframework.beans.factory.support.BeanDefinitionRegistry#registerBeanDefinition
+	 * add by chenlei 2018/12/12 在容器内注册一个单例类
 	 */
 	void registerSingleton(String beanName, Object singletonObject);
 
@@ -69,6 +71,7 @@ public interface SingletonBeanRegistry {
 	 * @param beanName the name of the bean to look for
 	 * @return the registered singleton object, or {@code null} if none found
 	 * @see ConfigurableListableBeanFactory#getBeanDefinition
+	 * add by chenlei 2018/12/12 根据beanName返回对应的单例类
 	 */
 	@Nullable
 	Object getSingleton(String beanName);
@@ -94,6 +97,7 @@ public interface SingletonBeanRegistry {
 	 * @see #registerSingleton
 	 * @see org.springframework.beans.factory.ListableBeanFactory#containsBeanDefinition
 	 * @see org.springframework.beans.factory.BeanFactory#containsBean
+	 * add by chenlei 2018/12/12 检查容器中是否含有beanName的单例类
 	 */
 	boolean containsSingleton(String beanName);
 
@@ -108,6 +112,7 @@ public interface SingletonBeanRegistry {
 	 * @see #registerSingleton
 	 * @see org.springframework.beans.factory.support.BeanDefinitionRegistry#getBeanDefinitionNames
 	 * @see org.springframework.beans.factory.ListableBeanFactory#getBeanDefinitionNames
+	 * add by chenlei 2018/12/12 返回容器中所有单例类的名称
 	 */
 	String[] getSingletonNames();
 
@@ -122,6 +127,7 @@ public interface SingletonBeanRegistry {
 	 * @see #registerSingleton
 	 * @see org.springframework.beans.factory.support.BeanDefinitionRegistry#getBeanDefinitionCount
 	 * @see org.springframework.beans.factory.ListableBeanFactory#getBeanDefinitionCount
+	 * add by chenlei 2018/12/12 返回容器中单例的数量
 	 */
 	int getSingletonCount();
 
@@ -129,6 +135,7 @@ public interface SingletonBeanRegistry {
 	 * Return the singleton mutex used by this registry (for external collaborators).
 	 * @return the mutex object (never {@code null})
 	 * @since 4.2
+	 * add by chenlei 2018/12/12 返回单例互斥锁对象
 	 */
 	Object getSingletonMutex();
 

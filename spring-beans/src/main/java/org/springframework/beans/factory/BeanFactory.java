@@ -112,6 +112,7 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessAfterInitialization
  * @see DisposableBean#destroy
  * @see org.springframework.beans.factory.support.RootBeanDefinition#getDestroyMethodName
+ * add by chenlei 2018/12/12 Spring bean 容器的最底层接口 定义了获取bean与其各种属性的方法
  */
 public interface BeanFactory {
 

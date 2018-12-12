@@ -52,11 +52,11 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	 */
 	private final Map<String, String> aliasMap = new ConcurrentHashMap<>(16);
 
-
+	/** add by chenlei addDate 2018/12/12 注册别名 */
 	@Override
 	public void registerAlias(String name, String alias) {
 		/** add by chenlei addDate 2018/12/5 校验不通过抛异常，而不是返回错误码。如果用错误码，在调用此方法的层次上，还需要有一层
-		 * 判断使用依据场景选择，工具类定义为abstract除了可以使工具类不能被实例化是否还有其他原因 */
+		 * 判断使用依据场景选择，工具类定义为abstract除了可以使工具类不能被实例化 */
 		Assert.hasText(name, "'name' must not be empty");
 		Assert.hasText(alias, "'alias' must not be empty");
 		synchronized (this.aliasMap) {
@@ -94,6 +94,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	/**
 	 * Return whether alias overriding is allowed.
 	 * Default is {@code true}.
+	 * dd by chenlei addDate 2018/12/12 是否允许别名覆盖
 	 */
 	protected boolean allowAliasOverriding() {
 		return true;
@@ -104,8 +105,10 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	 * @param name the name to check
 	 * @param alias the alias to look for
 	 * @since 4.2.1
+	 * dd by chenlei addDate 2018/12/12 判断name是否已注册过别名
 	 */
 	public boolean hasAlias(String name, String alias) {
+		//map.entrySet() 返回Map的内部接口Map.Entry<K,V> 表示Map中的一个实体（一个key-value对）有getKey getValue等方法
 		for (Map.Entry<String, String> entry : this.aliasMap.entrySet()) {
 			String registeredName = entry.getValue();
 			if (registeredName.equals(name)) {
@@ -117,7 +120,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 		}
 		return false;
 	}
-
+	/** add by chenlei addDate 2018/12/12  移除别名 */
 	@Override
 	public void removeAlias(String alias) {
 		synchronized (this.aliasMap) {
@@ -146,6 +149,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	 * Transitively retrieve all aliases for the given name.
 	 * @param name the target name to find aliases for
 	 * @param result the resulting aliases list
+	 * add by chenlei 检索别名
 	 */
 	private void retrieveAliases(String name, List<String> result) {
 		this.aliasMap.forEach((alias, registeredName) -> {
@@ -156,6 +160,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 		});
 	}
 
+
 	/**
 	 * Resolve all alias target names and aliases registered in this
 	 * factory, applying the given StringValueResolver to them.
@@ -165,9 +170,11 @@ public class SimpleAliasRegistry implements AliasRegistry {
 	 */
 	public void resolveAliases(StringValueResolver valueResolver) {
 		Assert.notNull(valueResolver, "StringValueResolver must not be null");
+		// add by chenlei addDate 2018/12/12  ConcurrentHashMap在put和remove的时候是线程安全
 		synchronized (this.aliasMap) {
 			Map<String, String> aliasCopy = new HashMap<>(this.aliasMap);
 			aliasCopy.forEach((alias, registeredName) -> {
+				// add by chenlei addDate 2018/12/12 StringValueResolver 字符串解析
 				String resolvedAlias = valueResolver.resolveStringValue(alias);
 				String resolvedName = valueResolver.resolveStringValue(registeredName);
 				if (resolvedAlias == null || resolvedName == null || resolvedAlias.equals(resolvedName)) {
